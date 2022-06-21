@@ -1,7 +1,11 @@
 class Solution {
 public:
     void nextPermutation(vector<int>& permutation) {
-        /*bool next_not_exist=true;
+    
+    //bad method
+    /*
+    int n=permutation.size();
+    bool next_not_exist=true;
     for(int i=1;i<n;i++)
     {
         if(permutation[i]>permutation[i-1])
@@ -11,71 +15,52 @@ public:
         }
     }    
     if(next_not_exist==true)
-    {
+
         sort(permutation.begin(),permutation.end());
-        return permutation;
-    }
-    else{
-            next_permutation(permutation.begin(),permutation.end());
-        return permutation;
-      }*/
-    //method1.
-        /*
-        bool check_exist=next_permutation(permutation.begin(),permutation.end());
-    if(check_exist==true)
-       {
-           for(auto it: permutation)
-            cout<<it<<" ";
-       }
-    else{
-        sort(permutation.begin(),permutation.end());
-        for(auto it: permutation)
-            cout<<it<<" ";
-    }
-    */
-        int n=permutation.size();
-        //step1. finding first decresaing element 
-        int i=n-2;
-        while(i>=0)
+    else
+        next_permutation(permutation.begin(),permutation.end());
+       
+      */
+    //using STL
+    /*
+     bool check=next_permutation(permutation.begin(),permutation.end());
+     if(check==false)
+         sort(permutation.begin(),permutation.end());
+       */
+        
+        //permutation logic.
+         int n=permutation.size();
+        //step1. find first decreasing from last
+        int first_decreasing=-1;
+        for(int i=n-2;i>=0;i--)
         {
             if(permutation[i]<permutation[i+1])
             {
+               first_decreasing=i;
                 break;
             }
-            i--;
         }
-        if(i>=0){//not last permutation
-            
-            //step2. first element just bigger than permutation[i]
-        int j=n-1;//come in reverse direction to find just begger than arr[i]
-        while(j>i)
+        if(first_decreasing>=0)//otherwise already at last permutation
         {
-            if(permutation[j]>permutation[i])
+            //step2. just greater than first increasing
+        int just_greater;
+        for(int i=n-1;i>=first_decreasing;i--)
+        {
+            if(permutation[i]>permutation[first_decreasing])
             {
+               just_greater=i;
                 break;
             }
-            j--;
         }
-        //j--;//come back to just greater element of i
-        //step3. swap(permutation[i],permutation[j])
-        int temp=permutation[i];
-        permutation[i]=permutation[j];
-        permutation[j]=temp;
-        //step4. reverse element i+1 to n
-        //reverse(&permutation[i+1],&permutation[n-1]);//...won't work in vector..must be iterator in argument
-        int start=i+1, last=n-1;
-        while (start<last) {
-            int temp=permutation[start];
-        permutation[start]=permutation[last];
-        permutation[last]=temp;;
-            start++;
-            last--;
+        //step3. swap(first_decreasing,just greater)
+        int temp=permutation[first_decreasing];
+        permutation[first_decreasing]=permutation[just_greater];
+        permutation[just_greater]=temp;
+        //step 4. reverse i+1 to n-1
+        reverse(&permutation[first_decreasing+1],&permutation[n]);
         }
-        
-      }
-    else{//last permutation
+        else
             sort(permutation.begin(),permutation.end());
-        }
         
     }
 };
