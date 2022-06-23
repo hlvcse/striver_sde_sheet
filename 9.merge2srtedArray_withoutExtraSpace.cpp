@@ -8,6 +8,8 @@ public:
     }
     void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {
         if(n==0)return;
+        //brute-force.
+        //using extra space.merging procedure
         //method 1.put smaller element into first and max into second.
         //keep comparing with first element of arr2..all arr1 must be <= arr2 finally
         /*
