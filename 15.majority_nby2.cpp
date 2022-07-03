@@ -10,25 +10,26 @@ public:
         return nums[n/2];
         */
         //methood 3. map(element ,frequency)
-        /*
+
         unordered_map<int,int> mp;
         for(auto ele:nums)
         {
             mp[ele]++;
          }
-        int max_freq=-1,ans;
+        int ans;
         for(auto it:mp)
         {
-           if(it.second>max_freq)
+           if(it.second>nums.size()/2)
            {
-               max_freq=it.second;
+            
                ans=it.first;
+               break;
            }   
          }
         return ans;
-        */
+
         //method optimal...moore vote algo
-        int maj,count=0;
+        /*int maj,count=0;
         for(auto ele:nums)
         {
             if(count==0)
@@ -37,5 +38,6 @@ public:
             else count--;
         }
         return maj;
+        */
     }
 };
